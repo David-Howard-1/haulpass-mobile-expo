@@ -13,9 +13,9 @@ const GetLocation = () => {
       await Location.requestForegroundPermissionsAsync();
     if (foregroundStatus === 'granted') {
       const location = await Location.getCurrentPositionAsync();
-      if (location === null) {
-        console.log('Location is null');
-        return null;
+      if (!location) {
+        console.log('No location received');
+        return;
       }
       console.log('Current location updated: ', location);
       const { latitude, longitude } = location.coords;
@@ -33,9 +33,9 @@ const GetLocation = () => {
       await Location.getForegroundPermissionsAsync();
     if (foregroundStatus === 'granted') {
       const location = await Location.getCurrentPositionAsync();
-      if (location === null) {
-        console.log('Location is null');
-        return null;
+      if (!location) {
+        console.log('No location received');
+        return;
       }
       const { latitude, longitude } = location.coords;
       await insertLocation(latitude, longitude, location.timestamp);
@@ -68,7 +68,7 @@ const GetLocation = () => {
       </Button>
       <Button
         onPress={getCurrentLocation}
-        radius={"lg"}
+        radius={'lg'}
         color="secondary"
         containerStyle={{
           margin: 10,
